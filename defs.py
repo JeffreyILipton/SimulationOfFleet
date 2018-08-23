@@ -145,15 +145,15 @@ def calcPercentage(group):
     p = np.sum(hist)/(len(group)*hist.size)
     return p
 
-def simulate(n_sec = 1000,nrobot=3,nhuman=1):
+def simulate(n_sec = 1000,nrobot=3,nhuman=1,p_robot = 0.95,p_human = 0.95,dummy=None):
     
     #Calculation values
-    p_robot = 0.95
+    #p_robot = 0.95
     mu = 20
     sigma=10
     mintime = 5
     
-    p_human = 0.95
+    #p_human = 0.95
     e_human = 60
     
     Debug = False
