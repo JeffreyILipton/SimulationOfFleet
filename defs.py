@@ -134,8 +134,8 @@ def processTimeStep(Robots,Humans,Debug=False):
     agents = Robots+Humans
     for agent in agents:
         agent.updateHistory()
-		
-		
+
+
 def calcPercentage(group):
     # each time step =1 means system waiting. Sum the system and normalize by number of robots * time
     n_sec = group[0].history.size
@@ -144,6 +144,18 @@ def calcPercentage(group):
         hist = hist + item.history
     p = np.sum(hist)/(len(group)*hist.size)
     return p
+
+def calcSuccess(agents):
+    n_success = 0
+    n_total = 0
+    for agent in agents:
+        s = agent.successCount
+        f = agent.failCount
+        if isinstance(agent,Human):
+            n_total +=f
+        n_success +=s
+        n_total += s
+    return n_success, n_total
 
 def simulate(n_sec = 1000,nrobot=3,nhuman=1,p_robot = 0.95,p_human = 0.95,dummy=None):
     
@@ -178,18 +190,14 @@ def simulate(n_sec = 1000,nrobot=3,nhuman=1,p_robot = 0.95,p_human = 0.95,dummy=
     # Sum up the successes 
     # sum up the total processings of objects. Failures only ocurr when the human and the robot fail
     agents = Robots+Humans
-    for agent in agents:
-        s = agent.successCount
-        f = agent.failCount
-        if isinstance(agent,Human):
-            n_total +=f
-        n_success +=s
-        n_total += s
+
     #calculate downtimes
     p_human_down = calcPercentage(Humans)
     p_robot_down = calcPercentage(Robots)
     
+    n_success, n_total = calcSuccess(agents)
+    
     successrate = n_success/n_total
     if Debug: print(f'human down {p_human_down}, and robots down {p_robot_down}')
-    return p_human_down, p_robot_down, successrate
+    return p_human_down, p_robot_down, successrate, n_total
 	
