@@ -157,16 +157,16 @@ def calcSuccess(agents):
         n_total += s
     return n_success, n_total
 
-def simulate(n_sec = 1000,nrobot=3,nhuman=1,p_robot = 0.95,p_human = 0.95,dummy=None):
+def simulate(n_sec = 1000,nrobot=3,nhuman=1,p_robot = 0.95,p_human = 0.95, mu=20, sigma=10,mintime=5,e_human=60,dummy=None):
     
     #Calculation values
     #p_robot = 0.95
-    mu = 20
-    sigma=10
-    mintime = 5
+    #mu = 20
+    #sigma=10
+    #mintime = 5
     
     #p_human = 0.95
-    e_human = 60
+    #e_human = 60
     
     Debug = False
     
